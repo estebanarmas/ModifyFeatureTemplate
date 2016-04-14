@@ -9,7 +9,7 @@ Esta aplicación fue desarrollada como solución para la gestión de las inciden
 Servidor Web, ej: Apache, IIS, Nginx, etc.
 
 ###Pasos
-1. [Descargar](https://github.com/esri-es/preventas/archive/master.zip) la aplicación del repositorio de GitHub.
+1. [Descargar](https://github.com/estebanarmas/ModifyFeatureTemplate/archive/master.zip) la aplicación del repositorio de GitHub.
 2.	Descomprimirlo en la raíz del servidor web.
 3.	Acceder a la página de inicio desde cualquier navegador.
 
