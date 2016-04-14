@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Mantenimiento de Municipio Rivas</title>
+<link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
+<script src="https://js.arcgis.com/3.16/"></script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!-- Latest compiled JavaScript -->
+<link rel="stylesheet" href="css/main.css">
+<script src="js/app.js"></script>
+<script>
+var state = true;
+function hideShow(){
+	if(!state){
+		$("#imagenAttach").show();
+		state = true;
+	}
+	else {
+		$("#imagenAttach").hide();
+		state = false;
+	}
+}
+function previewer(){
+	var preview = document.getElementById("preview");
+	var file = document.querySelector('input[type=file]').files[0];
+	var reader = new FileReader();
+	reader.onloadend = function(){
+		preview.src = reader.result;
+		$('#preview').show();
+	}
+	if(file){
+		reader.readAsDataURL(file);
+	}else{
+		preview.src = "";
+	}
+}
+</script>
+</head>
+<body>
+<div class="container">
+	<div class="col-md-12 col-lg-12 col-lg-offset">
+		<div class="row panel-heading">
+			<div class="col-sm-12" style="text-align:center;" id = "logo" >
+				<img class="img-responsive" src="img/banner.jpg" width="100%" height="100%"></img>
+			</div>
+			<div class="col-sm-3" style="text-align:center; margin-top: 30px;" id="login-status">
+				<label class="control-label">Bienvenido <span id="userId" class="bold"></span></label>
+				<img id = "avatar" class = "img-responsive" width="102" height="86" style="margin: 0 0 0 0;">
+				<!-- <button id="logout" class="btn btn-danger" style="align: center;">Salir</button> -->
+				<div class="btn-group btn-group-justified">
+				  <a href="#" id="dashboard" class="btn btn-success">Dashboard</a>
+				  <a href="#" id="logout" class="btn btn-danger">Salir</a>
+				</div>
+			</div>
+		</div>
+		<div id = "acceso" style="vertical-align:center;">
+			<h2 style="text-align:center">Bievenido al Sistema de Reporte y Actualizacion de Incidencias </br> del Ayuntamiento de Rivas Vaciamadrid</h2>
+			<button id="login" class="btn btn-success btn-lg btn-block">Entrar</button>
+		</div>
+		<div id = "formulario">
+				<div class="row">
+					<div class="col-sm-12" id="informacion_feature">
+						<form class="form-horizontal" role="form">
+						  <div class="form-group">
+							<label class="control-label col-sm-2">Codigo:</label>
+							<div class="col-sm-10">
+							  <input type="text" class="form-control" id="codigo" placeholder="Codigo" disabled>
+							</div>
+						  </div>
+						  <div class="form-group">
+							<label class="control-label col-sm-2">Tipo:</label>
+							<div class="col-sm-10">
+							  <input type="text" class="form-control" id="tipo" placeholder="Tipo" disabled>
+							</div>
+						  </div>
+						  <div class="form-group">
+							<label class="control-label col-sm-2">Fecha de Alta:</label>
+							<div class="col-sm-10">
+							  <input type="text" class="form-control" id="fecha_alta" placeholder="Fecha de Alta" disabled>
+							</div>
+						  </div>
+							<div class="form-group">
+							<label class="control-label col-sm-2">Estado:</label>
+							<div class="col-sm-10">
+							  <input type="text" class="form-control" id="estado" placeholder="Procede, Pendiente, Subsanado, etc." disabled>
+							</div>
+						  </div>
+							<div class="form-group">
+							<label class="control-label col-sm-2" onclick="hideShow()">Imagen Actual:</label>
+							<div class="col-sm-10">
+							  <img class="img-rounded" id="imagenAttach">
+							</div>
+						  </div>
+							<div class="form-group">
+							<label class="control-label col-sm-2">Subir Imagen:</label>
+							<div class="col-sm-10">
+								<form name= "myFile" role="form">
+							  	<input type="file" id="imagenUp" onchange="previewer()" accept= "image/*;capture=camera" name="attachment">
+								</form>
+								<img class="img-rounded" id="preview">
+							</div>
+						  </div>
+					</div>
+					<div class="col-sm-12" id="dashboard_panel">
+					<label for="comment">Listado de Incidencias</label>
+						<div class="table-responsive">
+						  <table class="table table-condensed table-hover table-bordered" id="dashboard_estados"></table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lm-12">
+					  <label for="comment">Ubicacion de la Insidencia:</label>
+						<div id="mapDiv" class="gf-map panel panel-default">
+							<div id="basemap_panel">
+								<div id="basemapGallery"></div>
+							</div>
+						</div>
+					</div>
+				  <div class="form-group" id="detalles_panel">
+					  <label for="comment">Detalles:</label>
+					  <textarea class="form-control" rows="10" id="detalles"></textarea>
+				  </div>
+			  <div class="form-group" id="mantenimiento">
+					<div class="col-sm-12">
+				  	<button id="subsanado" class="btn-lg btn-primary btn-block">Subsanado</button>
+					</div>
+				</div>
+				<div class="form-group" id="policia">
+					<div class="col-sm-12">
+						<div class="btn-group btn-group-justified">
+						  <a href="#" id="procede" class="btn btn-lg btn-success">Procede</a>
+						  <a href="#" id="no_procede" class="btn btn-lg btn-danger">No Procede</a>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" id="oitr">
+					<div class="col-sm-12">
+				  	<button id="finalizado" class="btn-lg btn-primary btn-block">Finalizado</button>
+					</div>
+				</div>
+		</form>
+	</div>
+	</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog">
+	<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Actualizando</h4>
+			</div>
+			<div class="modal-body">
+				Actualizando Datos...
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped active" role="progressbar"
+					aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+</body>
+<div class="clearfix"></div>
+<hr />
+<footer>
+		<div class="panel-body text-center">
+			<p>Powered by <a href="http://www.esri.es" target="_blank">ESRI España</a> 2016</p>
+		</div>
+</footer>
+</html>
