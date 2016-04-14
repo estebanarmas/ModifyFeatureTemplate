@@ -112,4 +112,4 @@ De igual forma, la interfaz deberá ser modificada adecuando a las nuevas caract
 
 ## FAQ
 
-Para dudas y sugerencias puede dirigirse a los [issues del proyecto](https://github.com/esri-es/preventas/issues).
+Para dudas y sugerencias puede dirigirse a los [issues del proyecto](https://github.com/estebanarmas/ModifyFeatureTemplate/issues).
