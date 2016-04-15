@@ -49,7 +49,7 @@ El zoom por defecto que tendrá el mapa al momento de mostrarse. Ej: 18
 * **center**:
 La ubicacion del centro del mapa, corresponde sobre al área que el servicio utilizado abarca. Ej: ````[-3.510596, 40.33253] ````
 * **id_Aplicacion**:
-Id de la aplicación que se obtiene del Portal de Arcgis Online, será de utilidad para el acceso de los usuarios autorizados a usar la aplicación.
+Id de la aplicación que se obtiene del Portal de Arcgis Online, será de utilidad para el acceso de los usuarios autorizados a usar la aplicación. Se puede [seguir este tutorial de Web AppBuilder](https://developers.arcgis.com/web-appbuilder/guide/getstarted.htm#ESRI_SECTION1_F2CE6567CB854E4AB43F08EB64B3D7AE) para crear una appId, el proceso es homólogo.
 * **popUP_autenticacion**:
 Para la autenticación del usuario se puede mostrar la interfaz de acceso mediante una ventana emergente o dentro de la misma ventana de la aplicación, este campo puede ser: ````true```` o `````false ```.
 * **cabeceras_dashboard**:
